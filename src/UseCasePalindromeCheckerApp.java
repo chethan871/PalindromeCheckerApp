@@ -1,34 +1,35 @@
-import java.util.LinkedList;
+
 
 public class UseCasePalindromeCheckerApp {
     public static void main(String[] args) {
 
 
-                String input = "level";
+                String input = "racecar";
 
-                LinkedList<Character> list = new LinkedList<>();
+                boolean result = check(input, 0, input.length() - 1);
 
-                for (char c : input.toCharArray()) {
-                    list.add(c);
+                if (result) {
+                    System.out.println("\"" + input + "\" is a palindrome.");
+                } else {
+                    System.out.println("\"" + input + "\" is NOT a palindrome.");
+                }
+            }
+
+            private static boolean check(String s, int start, int end) {
+
+
+                if (start >= end) {
+                    return true;
                 }
 
-                boolean isPalindrome = true;
-
-                while (list.size() > 1) {
-
-                    char first = list.removeFirst();
-                    char last = list.removeLast();
-
-                    if (first != last) {
-                        isPalindrome = false;
-                        break;
-                    }
+                if (s.charAt(start) != s.charAt(end)) {
+                    return false;
                 }
 
-                System.out.println("Input : " + input);
-                System.out.println("Is Palindrome? : " + isPalindrome);
+                return check(s, start + 1, end - 1);
             }
         }
+
 
 
 

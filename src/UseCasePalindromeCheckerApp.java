@@ -1,38 +1,42 @@
-public class UseCasePalindromeCheckerApp {
-    public static void main(String[] args) {
+import java.util.Stack;
 
-        String input = "level";
+    public class UseCasePalindromeCheckerApp {
+        public static void main(String[] args) {
 
-        PalindromeService service = new PalindromeService();
+            String input = "level";
 
-        boolean result = service.checkPalindrome(input);
+            PalindromeStrategy strategy = new StackStrategy();
 
-        System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + result);
-    }
-}
+            boolean result = strategy.check(input);
 
-class PalindromeService {
-
-    public boolean checkPalindrome(String input) {
-
-        int start = 0;
-        int end = input.length() - 1;
-
-        while (start < end) {
-
-            if (input.charAt(start) != input.charAt(end))
-                return false;
-
-            start++;
-            end--;
+            System.out.println("Input : " + input);
+            System.out.println("Is Palindrome? : " + result);
         }
-
-        return true;
     }
-}
 
+    interface PalindromeStrategy {
+        boolean check(String input);
+    }
 
+    class StackStrategy implements PalindromeStrategy {
+
+        public boolean check(String input) {
+
+            Stack<Character> stack = new Stack<>();
+
+            for (char c : input.toCharArray()) {
+                stack.push(c);
+            }
+
+            for (char c : input.toCharArray()) {
+                if (c != stack.pop()) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
 
 
 
